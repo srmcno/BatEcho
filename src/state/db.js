@@ -12,7 +12,7 @@ const OPEN_TIMEOUT_MS = 2000;
 
 let _backendPromise = null;
 let _useMemory = false;
-const _mem = Object.fromEntries(STORES.map((s) => [s, new Map()]));
+const _mem = STORES.reduce((acc, s) => { acc[s] = new Map(); return acc; }, {});
 
 export let storageMode = 'indexeddb'; // 'indexeddb' | 'memory'
 
