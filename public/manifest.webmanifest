@@ -1,0 +1,20 @@
+{
+  "name": "BatEcho — Acoustic Monitoring Platform",
+  "short_name": "BatEcho",
+  "description": "Professional bat acoustic monitoring, echolocation call analysis and species identification.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0f1c",
+  "theme_color": "#0a0f1c",
+  "categories": ["science", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
