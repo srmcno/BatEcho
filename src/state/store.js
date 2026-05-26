@@ -65,7 +65,7 @@ export const store = {
   },
   saveSettings(patch) {
     this.state.settings = { ...this.state.settings, ...patch };
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify(this.state.settings));
+    try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(this.state.settings)); } catch { /* storage may be unavailable on file:// */ }
     applyTheme(this.state.settings.theme);
     this.emit('settings');
   },

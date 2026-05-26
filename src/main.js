@@ -204,12 +204,31 @@ function buildShell() {
 }
 
 async function boot() {
-  await store.init();
-  buildShell();
-  window.addEventListener('hashchange', renderView);
-  if (!location.hash) location.hash = '#/dashboard';
-  renderView();
-  registerSW();
+  try {
+    await store.init();
+  } catch (err) {
+    console.error('[BatEcho] init failed:', err);
+  }
+  try {
+    buildShell();
+    window.addEventListener('hashchange', renderView);
+    if (!location.hash) location.hash = '#/dashboard';
+    renderView();
+    registerSW();
+  } catch (err) {
+    showBootError(err);
+  }
+}
+
+function showBootError(err) {
+  const app = document.getElementById('app');
+  if (!app) return;
+  app.removeAttribute('aria-busy');
+  app.innerHTML = `<div style="max-width:560px;margin:12vh auto;padding:28px;font-family:system-ui,sans-serif;color:#e8eefb">
+    <h2 style="color:#2dd4bf;margin:0 0 8px">BatEcho could not start</h2>
+    <p style="color:#9fb0d0;line-height:1.5">An unexpected error occurred while initializing. If you opened this file directly, try a Chromium-based browser, or run it from a local web server.</p>
+    <pre style="background:#0f1a30;border:1px solid #1e2c4a;border-radius:10px;padding:12px;overflow:auto;color:#fca5a5;font-size:12px">${String(err && err.stack || err)}</pre>
+  </div>`;
 }
 
 function registerSW() {
