@@ -239,4 +239,11 @@ function registerSW() {
   }
 }
 
-boot();
+// Wait for the DOM before booting. The single-file build inlines a CLASSIC
+// (non-module) script for Safari file:// compatibility, which — unlike a module
+// script — is not deferred, so #app may not exist yet when this runs.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot, { once: true });
+} else {
+  boot();
+}
