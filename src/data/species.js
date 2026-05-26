@@ -160,7 +160,7 @@ export const SPECIES = [
   },
 ];
 
-export const SPECIES_BY_ID = Object.fromEntries(SPECIES.map((s) => [s.id, s]));
+export const SPECIES_BY_ID = SPECIES.reduce((acc, s) => { acc[s.id] = s; return acc; }, {});
 
 export function speciesById(id) {
   return SPECIES_BY_ID[id] || null;

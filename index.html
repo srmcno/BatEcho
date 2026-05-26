@@ -9,6 +9,23 @@
     <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
     <link rel="apple-touch-icon" href="./icons/icon.svg" />
     <title>BatEcho — Acoustic Monitoring Platform</title>
+    <script>
+      // Surface startup failures on screen (no dev console available on mobile).
+      (function () {
+        function show(label, detail) {
+          var el = document.getElementById('startup-error');
+          if (!el) return;
+          el.style.display = 'block';
+          el.textContent = 'BatEcho startup error — ' + label + ': ' + detail;
+        }
+        window.addEventListener('error', function (e) {
+          show(e.filename ? 'script' : 'error', (e.message || 'unknown') + (e.lineno ? ' @' + e.lineno + ':' + e.colno : ''));
+        });
+        window.addEventListener('unhandledrejection', function (e) {
+          show('promise', (e.reason && (e.reason.message || e.reason)) + '');
+        });
+      })();
+    </script>
   </head>
   <body>
     <div id="app" aria-busy="true">
@@ -21,6 +38,7 @@
         <div class="boot-title">BatEcho</div>
         <div class="boot-sub">Initializing acoustic engine…</div>
       </div>
+      <div id="startup-error" style="display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:1000;background:#3b0d0d;color:#fecaca;border:1px solid #ef4444;border-radius:10px;padding:12px 14px;font:13px/1.4 -apple-system,system-ui,sans-serif;word-break:break-word"></div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>

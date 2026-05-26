@@ -33,7 +33,7 @@ export default defineConfig(({ mode }) => {
     base: './',
     plugins: single ? [viteSingleFile(), classicScriptForFileUrls()] : [],
     build: {
-      target: single ? 'es2019' : 'es2020',
+      target: single ? 'es2015' : 'es2020',
       outDir: 'dist',
       sourcemap: false,
       chunkSizeWarningLimit: 1200,
